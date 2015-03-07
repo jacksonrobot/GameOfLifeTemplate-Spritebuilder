@@ -161,7 +161,7 @@
 				<key>displayName</key>
 				<string>CCBFile</string>
 				<key>memberVarAssignmentName</key>
-				<string>_grid</string>
+				<string>_Grid</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -210,6 +210,8 @@
 						<string>Grid.ccb</string>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -1596,8 +1598,6 @@
 										</array>
 									</dict>
 								</array>
-								<key>selected</key>
-								<true/>
 							</dict>
 							<dict>
 								<key>UUID</key>
