@@ -68,12 +68,12 @@ static const int GRID_COLUMNS =10;
     //get the creature at the location
     Creature *creature = [self creatureForTouchPosition:touchLocation];
     //invert it's state -kill it if it's alive,bring it to life if it's dead.
-    creature.isAlive = !creature.isAlive;
+     creature.isAlive = !creature.isAlive;
 }
 - (Creature *)creatureForTouchPosition:(CGPoint)touchPosition
 {
     //get the row and column that was touched, return the Creature inside the corresponding cell
-    
+    return _gridArray[2][5];
 }
 
 @end
