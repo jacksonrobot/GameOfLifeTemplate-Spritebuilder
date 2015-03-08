@@ -98,6 +98,7 @@ static const int GRID_COLUMNS =10;
     }
     return isIndexValid;
 }
+#pragma  mark - Game Logic
 -(void)evolveStep{
     [self countNeighbors];//update each Creature's neighbor count
     [self updateCreatures];//update each Creature's state
