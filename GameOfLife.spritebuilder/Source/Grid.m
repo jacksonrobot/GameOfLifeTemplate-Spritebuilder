@@ -21,6 +21,8 @@ static const int GRID_COLUMNS =10;
     
     float _cellHeight;//放置生物的高
 }
+#pragma mark - Lifecycle
+
 - (void)onEnter
 {
     [super onEnter];
@@ -30,6 +32,9 @@ static const int GRID_COLUMNS =10;
     // accept touches on the grid
     self.userInteractionEnabled = YES;
 }
+
+#pragma mark - Setup Grid
+
 -(void)setupGrid
 {
 // divide the grid's size by the number of colums/rows to figure out the right width and height of each cell
@@ -60,6 +65,7 @@ static const int GRID_COLUMNS =10;
         y +=_cellHeight;
     }
 }
+#pragma mark - Touch Handling
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
@@ -73,8 +79,31 @@ static const int GRID_COLUMNS =10;
 - (Creature *)creatureForTouchPosition:(CGPoint)touchPosition
 {
     //get the row and column that was touched, return the Creature inside the corresponding cell
-    return _gridArray[8][10];
+    Creature *creature = nil;
+    
+    int column = touchPosition.x /_cellWidth;
+    int row = touchPosition.y /_cellHeight;
+    creature = _gridArray[row][column];
+    
+    return creature;
 }
+#pragma mark - Util function
+
+- (BOOL)isIndexValidForX:(int)x andY:(int)y
+{
+    BOOL isIndexValid = YES;
+    if(x < 0 || y < 0 || x >= GRID_ROWS || y >= GRID_COLUMNS)
+    {
+        isIndexValid = NO;
+    }
+    return isIndexValid;
+}
+-(void)evolveStep{
+    [self countNeighbors];//update each Creature's neighbor count
+    [self updateCreatures];//update each Creature's state
+    _generation++;//update the generation so the label's text will display the correct generation
+}
+
 
 - (void) countNeighbors
 {
@@ -101,7 +130,7 @@ static const int GRID_COLUMNS =10;
                 {
                     // check that the cell we're checking isn't off the screen
                     BOOL isIndexValid;
-                    isIndexValid = [self isIndexValidFor X:x andY:y];
+                    isIndexValid = [self isIndexValidForX:x andY:y];
                     
                     // skip over all cells that are off screen AND the cell that contains the creature we are currently updating
                     if (!((x == i) && (y == j)) && isIndexValid)
@@ -117,6 +146,24 @@ static const int GRID_COLUMNS =10;
         }
     }
 
+}
+-(void)updateCreatures{
+    _totalAlive = 0;
+    
+    for (int i = 0; i < [_gridArray count]; i++) {
+        for (int j = 0; j < [_gridArray[i] count]; j++) {
+            Creature *currentCreature = _gridArray[i][j];
+            if (currentCreature.livingNeighbors == 3) {
+                currentCreature.isAlive = YES;
+            } else if ( (currentCreature.livingNeighbors <= 1) || (currentCreature.livingNeighbors >= 4)) {
+                currentCreature.isAlive = NO;
+            }
+            
+            if (currentCreature.isAlive) {
+                _totalAlive++;
+            }
+        }
+    }
 }
 
 
