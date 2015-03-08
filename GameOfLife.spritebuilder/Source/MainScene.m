@@ -15,7 +15,7 @@
 Grid *_grid;
 CCTimer *_timer;
 CCLabelTTF *_generationLabel;
-CCLabelTTF *_populational;
+CCLabelTTF *_populationLabel;
 }
 - (id)init
 {
@@ -40,6 +40,7 @@ CCLabelTTF *_populational;
 }
 
 // this method will get called every half second when you hit the play button and will stop getting called when you hi the pause button
+
 - (void)step
 {
     [_grid evolveStep];
