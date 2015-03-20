@@ -59,7 +59,7 @@ static const int GRID_COLUMNS =10;
             //this is shorthand to access an array inisde an array
             _gridArray[i][j] = creature;
             //make creature visible to test this method,remove this once we know we have filled the grid peoperly
-           creature.isAlive = YES;
+           //creature.isAlive = YES;
             x += _cellWidth;
         }
         y +=_cellHeight;
